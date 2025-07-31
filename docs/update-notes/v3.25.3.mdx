@@ -1,0 +1,32 @@
+---
+description: Roo Code 3.25.3 improves message queueing with image support, increases Claude Code output limits, and fixes UI interaction issues.
+keywords:
+  - roo code 3.25.3
+  - image queueing
+  - claude code tokens
+  - ui fixes
+image: /img/social-share.jpg
+---
+
+# Roo Code 3.25.3 Release Notes (2025-07-30)
+
+This release adds image queueing support, increases Claude Code's output capacity, and fixes several UI interaction issues.
+
+## QOL Improvements
+
+* **Message Queueing**: You can now queue messages with images, making it easier to prepare multiple image-based requests ([#6414](https://github.com/RooCodeInc/Roo-Code/pull/6414))
+* **Claude Code Output**: Increased default max output tokens to 16k for more comprehensive responses (thanks bpeterson1991, app/roomote!) ([#6312](https://github.com/RooCodeInc/Roo-Code/pull/6312))
+* **Slash Commands Documentation**: Added documentation link for slash commands to improve discoverability ([#6409](https://github.com/RooCodeInc/Roo-Code/pull/6409))
+* **Cleaner UI**: Hidden Gemini checkboxes on the welcome view for a cleaner interface ([#6415](https://github.com/RooCodeInc/Roo-Code/pull/6415))
+* **Tool Clarity**: Clarified apply_diff tool descriptions to emphasize surgical edits ([#6278](https://github.com/RooCodeInc/Roo-Code/pull/6278))
+
+## Bug Fixes
+
+* **Input Preservation**: Fixed issue where clicking chat buttons would clear the input field (thanks hassoncs!) ([#6222](https://github.com/RooCodeInc/Roo-Code/pull/6222))
+
+## Misc Improvements
+
+* **PR Reviewer Updates**: Updated PR reviewer rules and mode configuration (thanks daniel-lxs!) ([#6391](https://github.com/RooCodeInc/Roo-Code/pull/6391))
+* **Translation Automation**: Added translation check action to pull_request.opened event (thanks app/roomote!) ([#6393](https://github.com/RooCodeInc/Roo-Code/pull/6393))
+* **Extension Title**: Removed "(prev Roo Cline)" from extension title in all languages (thanks app/roomote!) ([#6426](https://github.com/RooCodeInc/Roo-Code/pull/6426))
+* **PR Rules Cleanup**: Removed event types mention from PR reviewer rules (thanks daniel-lxs!) ([#6428](https://github.com/RooCodeInc/Roo-Code/pull/6428))

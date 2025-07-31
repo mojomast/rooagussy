@@ -11,6 +11,60 @@ image: /img/social-share.jpg
 
 # Roo Code 3.25 Release Notes
 
+## 3.25.3 (2025-07-30)
+
+This patch release improves message queueing with image support, increases Claude Code output limits, and fixes UI interaction issues.
+
+### Quality of Life Improvements
+
+* **Message Queueing**: You can now queue messages with images, making it easier to prepare multiple image-based requests
+* **Claude Code Output**: Increased default max output tokens to 16k for more comprehensive responses
+* **Slash Commands Documentation**: Added documentation link for slash commands to improve discoverability
+* **Cleaner UI**: Hidden Gemini checkboxes on the welcome view for a cleaner interface
+* **Tool Clarity**: Clarified apply_diff tool descriptions to emphasize surgical edits
+
+### Bug Fixes
+
+* **Input Preservation**: Fixed issue where clicking chat buttons would clear the input field
+
+### Misc. Improvements
+
+* **PR Reviewer Updates**: Updated PR reviewer rules and mode configuration
+* **Translation Automation**: Added translation check action to pull_request.opened event
+* **Extension Title**: Removed "(prev Roo Cline)" from extension title in all languages
+* **PR Rules Cleanup**: Removed event types mention from PR reviewer rules
+
+## 3.25.2 (2025-07-29)
+
+This patch release fixes critical issues with command highlighting and improves shell command validation.
+
+### Bug Fixes
+
+* **Command Highlighting**: Fixed zap hover state for better visual feedback
+* **Subshell Validation**: Improved handling and validation of complex shell commands with subshells
+
+### Misc. Improvements
+
+* **Type Updates**: Updated VS Code types to version 1.40.0 for better compatibility
+
+## 3.25.1 (2025-07-29)
+
+This patch release improves subshell validation and fixes diff view display issues.
+
+### Bug Fixes
+
+* **Subshell Validation**: Enhanced validation for complex shell commands with command substitution patterns
+* **Diff View Display**: Fixed issue where diff view wasn't showing before approval when background edits were disabled
+
+### Provider Updates
+
+* **Chutes AI**: Added GLM-4.5-Air model support with 151K token context window
+
+### Misc. Improvements
+
+* **Organization MCP Controls**: Added cloud support for managing MCP servers at the organization level
+* **Documentation Updates**: Updated docs extractor mode configuration and rules
+
 ## 3.25.0 (2025-07-29)
 
 This release brings powerful new capabilities to Roo Code, including custom slash commands for workflow automation, enhanced Gemini models with web access, comprehensive image support, and seamless message queueing for uninterrupted conversations.
