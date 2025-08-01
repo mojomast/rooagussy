@@ -76,6 +76,14 @@ const config: Config = {
         highlightSearchTermsOnTargetPage: true,
         explicitSearchResultPath: true,
         docsRouteBasePath: "/",
+        // Remove default stemmer to allow exact matches
+        removeDefaultStemmer: true,
+        // Remove stop word filter to allow searching for common words
+        removeDefaultStopWordFilter: true,
+        // Increase search result limits to show more results
+        searchResultLimits: 20,
+        // Increase context length to show more content
+        searchResultContextMaxLength: 100,
       },
     ],
   ],
