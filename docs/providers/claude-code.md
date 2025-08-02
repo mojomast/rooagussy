@@ -38,6 +38,21 @@ The `claude` command-line tool, like other Anthropic SDKs, can use the `ANTHROPI
 If this environment variable is set on your system, the `claude` tool may use it for authentication instead of the interactive `/login` method. When Roo Code executes the tool, it will accurately reflect that an API key is being used, as this is the underlying behavior of the `claude` CLI itself.
 :::
 
+:::warning CLAUDE.md File Injection
+The Claude CLI tool (version 1.0.62 and potentially other versions) automatically injects the contents of any `CLAUDE.md` file found in your repository root into the conversation context. This behavior occurs at the CLI level, not within Roo Code.
+
+**Important considerations:**
+- If you have a `CLAUDE.md` file in your repository root, its contents will be included in every prompt sent to Claude
+- This injection happens transparently without explicit file read operations
+- The injected content counts toward your token usage (can add significant tokens to each request)
+- This is a behavior of the Claude CLI tool itself, not Roo Code
+
+**To verify or debug this behavior:**
+- Check if a `CLAUDE.md` file exists in your repository root
+- Be aware that instructions in `CLAUDE.md` will be applied to all Claude interactions through the CLI
+- Consider the token cost implications when using `CLAUDE.md` files with the Claude Code provider
+:::
+
 **Website:** [https://docs.anthropic.com/en/docs/claude-code/setup](https://docs.anthropic.com/en/docs/claude-code/setup)
 
 ---
