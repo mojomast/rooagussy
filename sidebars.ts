@@ -178,6 +178,7 @@ const sidebars: SidebarsConfig = {
         'providers/vertex',
         'providers/vscode-lm',
         'providers/xai',
+        'providers/zai',
       ]
     },
     {
