@@ -160,6 +160,7 @@ const sidebars: SidebarsConfig = {
         'providers/bedrock',
         'providers/cerebras',
         'providers/deepseek',
+        'providers/fireworks',
         'providers/chutes',
         'providers/gemini',
         'providers/glama',
