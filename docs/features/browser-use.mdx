@@ -7,52 +7,95 @@ keywords:
   - AI browser
   - web automation
   - Roo Code browser
+  - Puppeteer
+  - headless browser
+  - web testing
 image: /img/social-share.jpg
 ---
+
+import Codicon from "@site/src/components/Codicon";
 
 # Browser Use
 
 Roo Code provides sophisticated browser automation capabilities that let you interact with websites directly from VS Code. This feature enables testing web applications, automating browser tasks, and capturing screenshots without leaving your development environment.
 
-
-
-<div style={{ position: 'relative', paddingBottom: '56.25%', height: 0, overflow: 'hidden' }}>
+<div
+  style={{
+    position: "relative",
+    paddingBottom: "56.25%",
+    height: 0,
+    overflow: "hidden",
+  }}
+>
   <iframe
     src="https://www.youtube.com/embed/SJae206swxA"
     style={{
-      position: 'absolute',
+      position: "absolute",
       top: 0,
       left: 0,
-      width: '100%',
-      height: '100%',
+      width: "100%",
+      height: "100%",
     }}
     frameBorder="0"
     allow="autoplay; encrypted-media"
     allowFullScreen
+    title="Browser Use Tutorial Video"
   ></iframe>
 </div>
 
-<div style={{ marginTop: '20px' }}></div>
+<div style={{ marginTop: "20px" }}></div>
 
 :::caution Model Support Required
-Browser Use within Roo Code requires the use of Claude Sonnet 3.5 or 3.7
+Browser Use within Roo Code requires the use of Claude Sonnet 3.5 or 3.7. Other models do not currently support browser automation features.
 :::
+
+:::tip Quick Start
+Simply ask Roo to visit a website or interact with a web page. The browser will launch automatically when needed - no setup required!
+:::
+
+---
+
+## Overview
+
+Browser Use transforms Roo Code into a powerful web automation assistant. Whether you're testing your web application, gathering information from websites, or automating repetitive browser tasks, Roo can handle it all through an integrated browser that runs seamlessly within your development environment.
+
+### Key Capabilities
+
+- **Automated Web Testing**: Test your web applications by having Roo interact with forms, buttons, and navigation
+- **Information Gathering**: Extract data from websites, check page layouts, and verify content
+- **Screenshot Capture**: Automatically capture and analyze web page screenshots
+- **Form Interaction**: Fill out forms, submit data, and interact with complex web interfaces
+- **Cross-Browser Testing**: Verify your site works correctly across different viewport sizes
+- **Session Persistence**: Maintain authenticated sessions when using remote browser connections
 
 ---
 
 ## How Browser Use Works
 
-By default, Roo Code uses a built-in browser that:
-- Launches automatically when you ask Roo to visit a website
-- Captures screenshots of web pages
-- Allows Roo to interact with web elements
-- Runs invisibly in the background
+By default, Roo Code uses a built-in Puppeteer-controlled browser that:
 
-All of this happens directly within VS Code, with no setup required.
+- Launches automatically when you ask Roo to visit a website
+- Captures screenshots of web pages for visual analysis
+- Allows Roo to interact with web elements through clicks, typing, and scrolling
+- Runs invisibly in the background (headless mode)
+- Closes automatically when the task is complete
+
+All of this happens directly within VS Code, with no additional setup required.
+
+### Browser Session Lifecycle
+
+1. **Launch**: Browser starts when you request web interaction
+2. **Navigate**: Roo opens the specified URL
+3. **Interact**: Performs requested actions (click, type, scroll)
+4. **Capture**: Takes screenshots after each action
+5. **Analyze**: Roo examines the page state and console output
+6. **Close**: Browser terminates when task completes
 
 ---
 
 ## Using Browser Use
+
+### Basic Usage
 
 A typical browser interaction follows this pattern:
 
@@ -63,21 +106,37 @@ A typical browser interaction follows this pattern:
 3. Request additional actions (clicking, typing, scrolling)
 4. Roo closes the browser when finished
 
-For example:
+### Example Requests
+
+**Simple Website Check:**
 
 ```
-Open the browser and view our site.
+Open the browser and view our site at https://example.com
 ```
 
-```
-Can you check if my website at https://roocode.com is displaying correctly?
-```
+**Testing Local Development:**
 
 ```
-Browse http://localhost:3000, scroll down to the bottom of the page and check if the footer information is displaying correctly.
+Can you check if my website at http://localhost:3000 is displaying correctly?
 ```
 
-<img src="/img/browser-use/browser-use-1.png" alt="Browser use example" width="300" />
+**Complex Interaction:**
+
+```
+Browse http://localhost:3000, scroll down to the bottom of the page and check if the footer information is displaying correctly. Then click the "Contact" link and verify the contact form is working.
+```
+
+**Form Testing:**
+
+```
+Go to our contact form at https://example.com/contact, fill in the form with test data, and verify the validation messages appear correctly.
+```
+
+<img
+  src="/img/browser-use/browser-use-1.png"
+  alt="Browser use example showing screenshot capture"
+  width="600"
+/>
 
 ---
 
@@ -85,33 +144,46 @@ Browse http://localhost:3000, scroll down to the bottom of the page and check if
 
 The browser_action tool controls a browser instance that returns screenshots and console logs after each action, allowing you to see the results of interactions.
 
-Key characteristics:
-- Each browser session must start with `launch` and end with `close`
-- Only one browser action can be used per message
-- While the browser is active, no other tools can be used
-- You must wait for the response (screenshot and logs) before performing the next action
+### Key Characteristics
+
+- **Sequential Operations**: Each browser session must start with `launch` and end with `close`
+- **Single Action Per Message**: Only one browser action can be used per message
+- **Exclusive Tool Use**: While the browser is active, no other tools can be used
+- **Response Feedback**: You must wait for the response (screenshot and logs) before performing the next action
+- **State Persistence**: The browser maintains state between actions within a session
 
 ### Available Browser Actions
 
-| Action | Description | When to Use |
-|--------|-------------|------------|
-| `launch` | Opens a browser at a URL | Starting a new browser session |
-| `click` | Clicks at specific coordinates | Interacting with buttons, links, etc. |
-| `type` | Types text into active element | Filling forms, search boxes |
-| `scroll_down` | Scrolls down by one page | Viewing content below the fold |
-| `scroll_up` | Scrolls up by one page | Returning to previous content |
-| `close` | Closes the browser | Ending a browser session |
+| Action        | Description                    | When to Use                           | Example                   |
+| ------------- | ------------------------------ | ------------------------------------- | ------------------------- |
+| `launch`      | Opens a browser at a URL       | Starting a new browser session        | Testing homepage load     |
+| `click`       | Clicks at specific coordinates | Interacting with buttons, links, etc. | Submitting forms          |
+| `type`        | Types text into active element | Filling forms, search boxes           | Entering user credentials |
+| `scroll_down` | Scrolls down by one page       | Viewing content below the fold        | Checking footer content   |
+| `scroll_up`   | Scrolls up by one page         | Returning to previous content         | Navigating back to header |
+| `close`       | Closes the browser             | Ending a browser session              | Cleanup after testing     |
+
+### Action Sequencing
+
+Browser actions must follow a logical sequence:
+
+```
+launch → navigate → interact (click/type/scroll) → capture → close
+```
+
+Each action builds on the previous state, allowing complex multi-step interactions.
 
 ---
 
 ## Browser Use Configuration/Settings
 
 :::info Default Browser Settings
+
 - **Enable browser tool**: Enabled
 - **Viewport size**: Small Desktop (900x600)
 - **Screenshot quality**: 75%
 - **Use remote browser connection**: Disabled
-:::
+  :::
 
 ### Accessing Settings
 
@@ -119,89 +191,517 @@ To change Browser / Computer Use settings in Roo:
 
 1. Open Settings by clicking the gear icon <Codicon name="gear" /> → Browser / Computer Use
 
-   <img src="/img/browser-use/browser-use.png" alt="Browser settings menu" width="600" />
+   <img
+     src="/img/browser-use/browser-use.png"
+     alt="Browser settings menu"
+     width="600"
+   />
 
 ### Enable/Disable Browser Use
 
 **Purpose**: Master toggle that enables Roo to interact with websites using a Puppeteer-controlled browser.
 
+**When to disable:**
+
+- Working in environments where browser automation is restricted
+- Conserving system resources
+- Focusing on non-web development tasks
+
 To change this setting:
+
 1. Check or uncheck the "Enable browser tool" checkbox within your Browser / Computer Use settings
 
-   <img src="/img/browser-use/browser-use-2.png" alt="Enable browser tool setting" width="300" />
+   <img
+     src="/img/browser-use/browser-use-2.png"
+     alt="Enable browser tool setting"
+     width="300"
+   />
 
 ### Viewport Size
 
-**Purpose**: Determines the resolution of the browser session Roo Code uses.
+**Purpose**: Determines the resolution of the browser session Roo Code uses. This affects how websites render and what content is visible.
 
-**Tradeoff**: Higher values provide a larger viewport but increase token usage.
+**Tradeoff**: Higher resolutions provide a larger viewport but increase token usage due to larger screenshots.
+
+**Available Options:**
+
+| Resolution    | Dimensions | Best For                    | Token Impact |
+| ------------- | ---------- | --------------------------- | ------------ |
+| Large Desktop | 1280x800   | Full desktop layouts        | Highest      |
+| Small Desktop | 900x600    | Standard web apps (Default) | Medium       |
+| Tablet        | 768x1024   | Responsive testing          | Medium       |
+| Mobile        | 360x640    | Mobile-first testing        | Lowest       |
 
 To change this setting:
-1. Click the dropdown menu under "Viewport size" within your Browser / Computer Use settings
-2. Select one of the available options:
-   - Large Desktop (1280x800)
-   - Small Desktop (900x600) - Default
-   - Tablet (768x1024)
-   - Mobile (360x640)
-2. Select your desired resolution.
 
-   <img src="/img/browser-use/browser-use-3.png" alt="Viewport size setting" width="600" />
+1. Click the dropdown menu under "Viewport size" within your Browser / Computer Use settings
+2. Select your desired resolution
+
+   <img
+     src="/img/browser-use/browser-use-3.png"
+     alt="Viewport size setting dropdown"
+     width="600"
+   />
+
+**Choosing the Right Viewport:**
+
+- **Large Desktop**: Use when testing complex layouts or applications that require more screen real estate
+- **Small Desktop**: Ideal for most web applications and general testing
+- **Tablet**: Perfect for testing responsive designs and touch interfaces
+- **Mobile**: Essential for mobile-first development and testing mobile user experiences
 
 ### Screenshot Quality
 
-**Purpose**: Controls the WebP compression quality of browser screenshots.
+**Purpose**: Controls the WebP compression quality of browser screenshots. This directly impacts both visual clarity and token consumption.
 
-**Tradeoff**: Higher values provide clearer screenshots but increase token usage.
+**Tradeoff**: Higher quality provides clearer screenshots but increases token usage.
+
+**Quality Guidelines:**
+
+| Quality Range | Use Case                    | Visual Impact        | Token Usage |
+| ------------- | --------------------------- | -------------------- | ----------- |
+| 1-40%         | Text-only pages             | Basic readability    | Minimal     |
+| 40-60%        | Simple layouts              | Good for most text   | Low         |
+| 60-75%        | Standard web apps (Default) | Clear UI elements    | Medium      |
+| 75-85%        | Design review               | High visual fidelity | High        |
+| 85-100%       | Pixel-perfect testing       | Maximum clarity      | Very High   |
 
 To change this setting:
+
 1. Adjust the slider under "Screenshot quality" within your Browser / Computer Use settings
 2. Set a value between 1-100% (default is 75%)
-3. Higher values provide clearer screenshots but increase token usage:
-   - 40-50%: Good for basic text-based websites
-   - 60-70%: Balanced for most general browsing
-   - 80%+: Use when fine visual details are critical
 
-   <img src="/img/browser-use/browser-use-4.png" alt="Screenshot quality setting" width="600" />
+   <img
+     src="/img/browser-use/browser-use-4.png"
+     alt="Screenshot quality slider"
+     width="600"
+   />
+
+**Optimization Tips:**
+
+- Start with lower quality (40-50%) for text-heavy sites
+- Increase to 80%+ only when visual details are critical
+- Consider token costs when working with limited API budgets
+- Use higher quality for debugging visual issues
 
 ### Remote Browser Connection
 
-**Purpose**: Connect Roo to an existing Chrome browser instead of using the built-in browser.
+**Purpose**: Connect Roo to an existing Chrome browser instead of using the built-in headless browser. This enables advanced workflows and persistent sessions.
 
-**Benefits**:
-- Works in containerized environments and remote development workflows
-- Maintains authenticated sessions between browser uses
-- Eliminates repetitive login steps
-- Allows use of custom browser profiles with specific extensions
+**Benefits:**
 
-**Requirements**: Chrome must be running with remote debugging enabled.
+- **Persistent Sessions**: Maintain logged-in states between Roo sessions
+- **Visual Monitoring**: Watch Roo interact with websites in real-time
+- **Custom Profiles**: Use browser profiles with specific extensions or settings
+- **Container Support**: Works in DevContainers and remote development environments
+- **Debugging**: See exactly what Roo sees during interactions
+
+**Requirements**: Chrome must be running with remote debugging enabled on port 9222.
 
 To enable this feature:
+
 1. Check the "Use remote browser connection" box in Browser / Computer Use settings
 2. Click "Test Connection" to verify
 
-   <img src="/img/browser-use/browser-use-5.png" alt="Remote browser connection setting" width="600" />
+   <img
+     src="/img/browser-use/browser-use-5.png"
+     alt="Remote browser connection setting"
+     width="600"
+   />
+
+#### Setting Up Remote Browser Connection
+
+**Step 1: Launch Chrome with Remote Debugging**
+
+Choose the appropriate command for your operating system:
+
+**macOS:**
+
+```bash
+/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome \
+  --remote-debugging-port=9222 \
+  --user-data-dir=/tmp/chrome-debug \
+  --no-first-run
+```
+
+**Windows:**
+
+```bash
+"C:\Program Files\Google\Chrome\Application\chrome.exe" ^
+  --remote-debugging-port=9222 ^
+  --user-data-dir=C:\chrome-debug ^
+  --no-first-run
+```
+
+**Linux:**
+
+```bash
+google-chrome \
+  --remote-debugging-port=9222 \
+  --user-data-dir=/tmp/chrome-debug \
+  --no-first-run
+```
+
+**Step 2: Configure Roo Code**
+
+1. Enable "Use remote browser connection" in settings
+2. Click "Test Connection"
+3. You should see "Connection successful" message
+
+**Step 3: Start Using**
+
+- Ask Roo to browse websites as normal
+- Watch the interactions happen in the visible Chrome window
+- The browser remains open between tasks, preserving state
 
 #### Common Use Cases
 
-- **DevContainers**: Connect from containerized VS Code to host Chrome browser
-- **Remote Development**: Use local Chrome with remote VS Code server
-- **Custom Chrome Profiles**: Use profiles with specific extensions and settings
+**DevContainers & Remote Development:**
 
-#### Connecting to a Visible Chrome Window
+- Connect from containerized VS Code to host Chrome browser
+- Bypass container networking limitations
+- Access localhost services from the host machine
 
-Connect to a visible Chrome window to observe Roo's interactions in real-time:
+**Authenticated Testing:**
 
-**macOS**
-```bash
-/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --remote-debugging-port=9222 --user-data-dir=/tmp/chrome-debug --no-first-run
+- Log into services once manually
+- Roo can then interact with authenticated pages
+- Eliminates repetitive login steps in testing workflows
+
+**Custom Chrome Profiles:**
+
+- Create profiles with specific extensions installed
+- Use profiles with saved passwords and settings
+- Test with different user configurations
+
+**Visual Debugging:**
+
+- Watch Roo's interactions in real-time
+- Pause and inspect page state during automation
+- Debug complex interaction sequences
+
+---
+
+## Practical Examples and Use Cases
+
+### Web Application Testing
+
+**Scenario**: Testing a multi-step form submission process
+
+```
+Please test our registration form at http://localhost:3000/register:
+1. Fill in the form with test data
+2. Try submitting with invalid email to check validation
+3. Correct the email and submit successfully
+4. Verify the success message appears
 ```
 
-**Windows**
-```bash
-"C:\Program Files\Google\Chrome\Application\chrome.exe" --remote-debugging-port=9222 --user-data-dir=C:\chrome-debug --no-first-run
+### Responsive Design Verification
+
+**Scenario**: Checking how your site looks on different devices
+
+```
+Check how our homepage looks on mobile:
+1. Set viewport to mobile (360x640)
+2. Visit https://example.com
+3. Verify the mobile menu appears
+4. Check that images are properly sized
+5. Ensure text is readable without horizontal scrolling
 ```
 
-**Linux**
-```bash
-google-chrome --remote-debugging-port=9222 --user-data-dir=/tmp/chrome-debug --no-first-run
+### Content Verification
+
+**Scenario**: Ensuring dynamic content loads correctly
+
 ```
+Visit our dashboard at http://localhost:3000/dashboard and verify:
+1. The user profile loads in the sidebar
+2. The main content area shows recent activity
+3. The charts render properly
+4. No console errors appear
+```
+
+### E2E Testing Automation
+
+**Scenario**: Automating end-to-end user flows
+
+```
+Test the complete purchase flow:
+1. Go to http://localhost:3000/shop
+2. Click on the first product
+3. Add it to cart
+4. Proceed to checkout
+5. Fill in shipping details
+6. Verify the order summary is correct
+```
+
+### SEO and Meta Tag Checking
+
+**Scenario**: Verifying SEO elements are present
+
+```
+Check the SEO setup on our blog post:
+1. Visit https://example.com/blog/latest-post
+2. Check if the page title is set correctly
+3. Verify meta description is present
+4. Ensure Open Graph tags are configured
+5. Check for proper heading hierarchy
+```
+
+---
+
+## Security Considerations
+
+### Data Privacy
+
+When using Browser Use, be aware that:
+
+- Screenshots may contain sensitive information
+- Form data entered during testing could be logged
+- Console outputs might expose API keys or tokens
+- Cookies and session data may be captured
+
+**Best Practices:**
+
+- Use test accounts and data, never production credentials
+- Clear browser data after testing sensitive applications
+- Review screenshots before sharing or committing
+- Use environment variables for sensitive configuration
+
+### Network Security
+
+**Localhost Testing:**
+
+- Browser Use can access localhost and internal network resources
+- Be cautious when testing applications with admin interfaces
+- Ensure test environments are properly isolated
+
+**External Sites:**
+
+- Only interact with sites you own or have permission to test
+- Be aware of rate limiting and terms of service
+- Avoid automated interactions with production systems
+
+### Remote Browser Security
+
+When using remote browser connections:
+
+- The browser has full access to your system's network
+- Saved passwords and cookies are accessible
+- Extensions in the browser profile may affect behavior
+- Consider using isolated browser profiles for testing
+
+**Recommendations:**
+
+- Create dedicated Chrome profiles for Roo Code testing
+- Regularly clear browser data and cookies
+- Use incognito mode when appropriate
+- Monitor browser activity during automated sessions
+
+---
+
+## Troubleshooting
+
+### Common Issues and Solutions
+
+#### Browser Won't Launch
+
+**Problem**: "Failed to launch browser" error
+
+**Solutions:**
+
+1. **Check Model**: Ensure you're using Claude Sonnet 3.5 or 3.7
+2. **System Resources**: Verify sufficient RAM and CPU available
+3. **Permissions**: Check VS Code has permission to launch processes
+4. **Puppeteer Installation**: Reinstall the Roo Code extension if needed
+
+#### Screenshots Not Displaying
+
+**Problem**: Browser launches but screenshots don't appear
+
+**Solutions:**
+
+1. **Quality Settings**: Increase screenshot quality if too low
+2. **Viewport Size**: Ensure viewport isn't set to 0x0
+3. **Page Load**: Wait for page to fully load before capturing
+4. **Network Issues**: Check if the target URL is accessible
+
+#### Remote Browser Connection Failed
+
+**Problem**: Can't connect to Chrome with remote debugging
+
+**Solutions:**
+
+1. **Port Conflict**: Ensure port 9222 isn't already in use
+
+   ```bash
+   # Check if port is in use (Linux/Mac)
+   lsof -i :9222
+
+   # Check if port is in use (Windows)
+   netstat -an | findstr :9222
+   ```
+
+2. **Chrome Launch**: Verify Chrome started with correct flags
+3. **Firewall**: Check firewall isn't blocking port 9222
+4. **Multiple Instances**: Close other Chrome instances first
+
+#### Interactions Not Working
+
+**Problem**: Clicks or typing don't seem to affect the page
+
+**Solutions:**
+
+1. **Wait for Elements**: Ensure page elements are loaded
+
+   ```
+   Wait for the page to load completely, then click the submit button
+   ```
+
+2. **Correct Coordinates**: Verify click coordinates are accurate
+3. **JavaScript Rendering**: Some SPAs need time to render
+4. **Frame/iframe Issues**: Specify if content is in an iframe
+
+#### High Token Usage
+
+**Problem**: Browser operations consuming too many tokens
+
+**Solutions:**
+
+1. **Reduce Screenshot Quality**: Lower to 40-60% for text-only pages
+2. **Smaller Viewport**: Use mobile or tablet viewport when possible
+3. **Selective Screenshots**: Only capture when necessary
+4. **Batch Operations**: Combine multiple actions before capturing
+
+#### Session State Lost
+
+**Problem**: Login state or data disappears between actions
+
+**Solutions:**
+
+1. **Use Remote Browser**: Maintains persistent sessions
+2. **Cookie Handling**: Ensure cookies aren't being cleared
+3. **Single Session**: Complete all actions in one browser session
+4. **Local Storage**: Some apps use localStorage instead of cookies
+
+---
+
+## Best Practices
+
+### Performance Optimization
+
+1. **Minimize Screenshots**: Only capture when verification is needed
+2. **Batch Actions**: Perform multiple actions before taking screenshots
+3. **Appropriate Quality**: Match quality settings to your needs
+4. **Viewport Selection**: Use the smallest viewport that meets requirements
+
+### Testing Workflows
+
+1. **Start Simple**: Begin with basic navigation before complex interactions
+2. **Incremental Testing**: Build up test scenarios step by step
+3. **Error Handling**: Ask Roo to check for console errors
+4. **Validation Checks**: Verify each step before proceeding
+
+### Development Integration
+
+1. **Local Testing First**: Test on localhost before production URLs
+2. **Environment Variables**: Use different URLs for dev/staging/prod
+3. **Continuous Testing**: Integrate browser tests into your workflow
+4. **Documentation**: Document test scenarios for team reference
+
+---
+
+## Frequently Asked Questions
+
+### General Questions
+
+**Q: Can Browser Use work with any AI model?**
+A: No, Browser Use requires Claude Sonnet 3.5 or 3.7. Other models don't currently support browser automation features.
+
+**Q: Is the browser visible when running?**
+A: By default, the browser runs in headless mode (invisible). Use remote browser connection to see interactions in real-time.
+
+**Q: Can I use Browser Use for web scraping?**
+A: While technically possible, ensure you comply with website terms of service and robots.txt files. Use responsibly and ethically.
+
+**Q: Does Browser Use work with all websites?**
+A: Most websites work, but some with advanced anti-automation measures may block or limit functionality.
+
+### Technical Questions
+
+**Q: What browser engine does Roo Code use?**
+A: Roo Code uses Puppeteer, which controls a headless Chromium browser.
+
+**Q: Can I use my existing Chrome profile?**
+A: Yes, with remote browser connection you can use any Chrome profile with saved settings and extensions.
+
+**Q: How do I test authenticated areas of my application?**
+A: Either use remote browser with manual login, or have Roo perform the login steps as part of the test sequence.
+
+**Q: Can Browser Use handle file uploads?**
+A: File upload interactions are limited. Consider using API testing for file upload scenarios.
+
+**Q: Does it work with Single Page Applications (SPAs)?**
+A: Yes, but you may need to add wait conditions for dynamic content to load.
+
+### Troubleshooting Questions
+
+**Q: Why do screenshots look blurry?**
+A: Increase the screenshot quality setting. Default is 75%, try 85-90% for clearer images.
+
+**Q: Can I use Browser Use in a Docker container?**
+A: Yes, but you'll need to use remote browser connection to a Chrome instance outside the container.
+
+**Q: Why does the browser close unexpectedly?**
+A: The browser automatically closes when a task completes or encounters an error. Check for error messages in the output.
+
+**Q: How do I debug when interactions fail?**
+A: Use remote browser connection to watch interactions in real-time, or ask Roo to capture console logs after each action.
+
+---
+
+## Advanced Topics
+
+### Working with Dynamic Content
+
+For JavaScript-heavy applications:
+
+1. Allow time for content to render
+2. Check for loading indicators
+3. Verify AJAX requests complete
+4. Use explicit wait conditions
+
+### Handling Authentication
+
+Strategies for testing authenticated areas:
+
+1. **Session Persistence**: Use remote browser with saved login
+2. **Automated Login**: Include login steps in test sequence
+3. **Token Injection**: For development, inject auth tokens via console
+4. **Test Accounts**: Use dedicated test accounts with known credentials
+
+### Multi-Tab Testing
+
+While Browser Use primarily works with single tabs:
+
+- Focus on single-tab workflows
+- Use multiple sequential sessions for multi-tab scenarios
+- Consider API testing for complex multi-window interactions
+
+### Performance Testing
+
+Basic performance checks with Browser Use:
+
+- Measure page load times via console timing
+- Check for console performance warnings
+- Monitor network errors in console output
+- Verify resource loading completion
+
+---
+
+## See Also
+
+- [Auto-Approving Actions](/features/auto-approving-actions) - Automate browser interactions without manual approval
+- [Using Modes](/basic-usage/using-modes) - Understand different Roo Code operational modes
+- [How Tools Work](/basic-usage/how-tools-work) - Learn about Roo Code's tool system
+- [Model Temperature](/features/model-temperature) - Configure AI model behavior for testing scenarios
