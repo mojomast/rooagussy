@@ -37,7 +37,7 @@ Roo Code includes *experimental* support for the [VS Code Language Model API](ht
 1.  **Open Roo Code Settings:** Click the gear icon (<Codicon name="gear" />) in the Roo Code panel.
 2.  **Select Provider:** Choose "VS Code LM API" from the "API Provider" dropdown.
 3.  **Select Model:**  The "Language Model" dropdown will (eventually) list available models. The format is `vendor/family`. For example, if you have Copilot, you might see options like:
-    *   `copilot - claude-3.5-sonnet`
+    *   `copilot - claude-3.7-sonnet`
     *   `copilot - o3-mini`
     *   `copilot - o1-ga`
     *   `copilot - gemini-2.0-flash`

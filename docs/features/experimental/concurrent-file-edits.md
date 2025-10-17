@@ -91,7 +91,7 @@ This feature leverages the [`apply_diff`](/advanced-usage/available-tools/apply-
 ## Best Practices
 
 ### When to Enable
-- Using capable AI models (Claude 3.5 Sonnet, GPT-4, etc.)
+- Using capable AI models (Claude Sonnet 4 or Claude 3.7 Sonnet, GPT-4.1/GPT-4o, GPT-5 family)
 - Comfortable reviewing multiple changes at once
 
 ### When to Keep Disabled

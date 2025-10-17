@@ -84,7 +84,6 @@ Original reasoning models:
 ### GPT-4o Family
 Optimized GPT-4 models:
 
-* `gpt-4.5-preview`
 * `gpt-4o` - Optimized GPT-4
 * `gpt-4o-mini` - Smaller optimized variant
 
