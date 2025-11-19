@@ -27,14 +27,9 @@ Roo Code now supports Google’s Gemini 3 Pro Preview model through direct Gemin
 - **Reliable tool usage**: Executes complex multi-step tool workflows without getting stuck or losing track, especially in long, tool-heavy tasks.
 - **Better out-of-the-box defaults**: Uses `gemini-2.5-pro` by default where supported, sets a more natural temperature of 1, cleans up the Gemini model list, and includes reasoning / “thought” tokens in cost reporting so usage numbers better match provider billing.
 
-### Native Tool Calling for OpenAI-compatible Providers
-
-We've enabled native tool calling for providers using the OpenAI-compatible interface (thanks mrubens!) ([#9369](https://github.com/RooCodeInc/Roo-Code/pull/9369)):
-
-- **Broad Compatibility**: Enables native tool use with a wider range of models and providers that support the OpenAI format.
-- **Improved Reliability**: Offers more robust tool interactions in both streaming and non-streaming modes compared to XML-based calling.
-
 ## QOL Improvements
+
+- **Native Tool Calling for OpenAI-compatible Providers** ([#9369](https://github.com/RooCodeInc/Roo-Code/pull/9369)): Enables native tool use with a wider range of models and providers that support the OpenAI format, offering more robust tool interactions in both streaming and non-streaming modes (thanks mrubens!).
 
 - **Git status in environment details** ([#9310](https://github.com/RooCodeInc/Roo-Code/pull/9310)): Shows git status information in environment details so agents have more context about untracked, modified, and staged files.
 - **Tool protocol selector in advanced settings** ([#9324](https://github.com/RooCodeInc/Roo-Code/pull/9324)): Lets you choose which tool protocol to use (such as XML vs native) without editing config files.
