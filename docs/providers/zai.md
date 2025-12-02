@@ -46,7 +46,7 @@ Z AI provides different model catalogs based on your selected region:
 
 ### International Models
 * **GLM-4.6** - Context: 200K tokens
-* **GLM-4.5-X** - Enhanced reasoning and analysis capabilities
+* **GLM-4.5-X** - Advanced model for complex analysis and coding tasks
 * **GLM-4.5-AirX** - Balanced performance and efficiency
 * **GLM-4.5-Flash** - Optimized for speed with lower latency
 * GLM-4.5 series models
@@ -54,7 +54,7 @@ Z AI provides different model catalogs based on your selected region:
 
 ### China Mainland Models
 * **GLM-4.6** - Context: 200K tokens
-* **GLM-4.5-X** - Enhanced reasoning and analysis capabilities
+* **GLM-4.5-X** - Advanced model for complex analysis and coding tasks
 * **GLM-4.5-AirX** - Balanced performance and efficiency
 * **GLM-4.5-Flash** - Optimized for speed with lower latency
 * GLM-4.5 series models
@@ -80,6 +80,17 @@ The specific model availability may vary by region. The appropriate models will 
   - China → `https://open.bigmodel.cn/api/paas/v4`
 - **Dynamic Models:** Changing the region automatically updates the model catalog and target endpoint.
 - **No Manual Base URL Needed:** You typically do not need to configure a custom base URL.
+
+---
+
+## Reasoning Support
+
+Z AI's GLM models have different reasoning capabilities:
+
+* **GLM-4.5 and GLM-4.6**: These models were trained with non-think data and do not support configurable reasoning toggles or extended thinking modes in coding agents.
+* **GLM-4.6 Air** (Future): Extended thinking capabilities for coding agents will be available in the upcoming GLM-4.6 Air model.
+
+Unlike some other providers that offer reasoning budget controls or thinking modes, the current GLM-4.5 and GLM-4.6 models operate without these features. This design choice optimizes them for direct, efficient responses in coding and analysis tasks.
 
 ---
 
