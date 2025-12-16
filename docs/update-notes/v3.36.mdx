@@ -59,6 +59,8 @@ You can now configure how Enter behaves in the chat input so it better fits mult
 * **Tool instructions decoupled from system prompts**: Tool-specific guidance is self-contained in tool descriptions ([#9784](https://github.com/RooCodeInc/Roo-Code/pull/9784))
 * **Clearer auto-approve timing in follow-up suggestions**: Makes the auto-approve countdown harder to miss ([#10048](https://github.com/RooCodeInc/Roo-Code/pull/10048))
 * **Simplified Auto-Approve settings**: Removes separate toggles for retry and todo updates, reducing configuration overhead ([#10062](https://github.com/RooCodeInc/Roo-Code/pull/10062))
+* **Richer error details dialog**: Adds extra context (extension version, provider/model, timestamp, etc.) to the error details dialog to make debugging and reporting issues faster ([#10050](https://github.com/RooCodeInc/Roo-Code/pull/10050))
+* **Fewer read_file failures on large files**: Improves large-file reading by incrementally reading up to a token budget and returning cleaner truncation when needed ([#10052](https://github.com/RooCodeInc/Roo-Code/pull/10052))
 
 ## Bug Fixes
 
@@ -99,6 +101,12 @@ You can now configure how Enter behaves in the chat input so it better fits mult
 * **LiteLLM tool protocol dropdown always appears**: Restores the tool protocol dropdown in Advanced settings even when model metadata isn’t available yet ([#10053](https://github.com/RooCodeInc/Roo-Code/pull/10053))
 * **MCP tool calls work with stricter providers**: Avoids failures caused by special characters in MCP server/tool names by sanitizing names and using an unambiguous `mcp--server--tool` ID format ([#10054](https://github.com/RooCodeInc/Roo-Code/pull/10054))
 * **More consistent tool validation for modes**: Improves reliability by consolidating mode tool-availability checks in one place ([#10089](https://github.com/RooCodeInc/Roo-Code/pull/10089))
+* **Cross-provider tool-call ID compatibility**: Fixes an issue where tool calls could fail when routing via OpenRouter to providers/models with stricter tool-call ID requirements ([#10102](https://github.com/RooCodeInc/Roo-Code/pull/10102))
+* **MCP nested schema compatibility**: Fixes an issue where MCP tools could fail against stricter schema validation by ensuring nested tool schemas set `additionalProperties: false` ([#10109](https://github.com/RooCodeInc/Roo-Code/pull/10109))
+* **More reliable delegation resume**: Fixes an issue where resuming a parent task after delegation could fail due to mismatched tool result IDs ([#10135](https://github.com/RooCodeInc/Roo-Code/pull/10135))
+* **Avoid deleting the wrong API messages**: Fixes a race condition where deleting a user message could remove earlier assistant API messages, especially during streaming/tool use ([#10113](https://github.com/RooCodeInc/Roo-Code/pull/10113))
+* **Deduplicate MCP tools across configs**: Fixes a “tool is already defined” error when the same MCP server exists in both global and project configs ([#10096](https://github.com/RooCodeInc/Roo-Code/pull/10096))
+* **Fix provider pricing page link**: Fixes a broken route so the provider pricing link takes you to the correct destination ([#10107](https://github.com/RooCodeInc/Roo-Code/pull/10107))
 
 ## Misc Improvements
 
@@ -118,6 +126,8 @@ You can now configure how Enter behaves in the chat input so it better fits mult
 * **Tool aliases for model-specific tool naming**: Adds support for alternative tool names so different models can call the same tool using the naming they expect ([#9989](https://github.com/RooCodeInc/Roo-Code/pull/9989))
 * **Workspace task visibility controls for organizations**: Adds an org-level setting for how visible Roo Code Cloud “extension tasks” are across the workspace ([#10020](https://github.com/RooCodeInc/Roo-Code/pull/10020))
 * **Improved web-evals run logs**: Makes evaluation runs easier to inspect by improving run logs and formatting ([#10081](https://github.com/RooCodeInc/Roo-Code/pull/10081))
+* **Control public task sharing**: Adds an organization-level setting to disable public task sharing links ([#10105](https://github.com/RooCodeInc/Roo-Code/pull/10105))
+* **Evals UI: clearer tool grouping + duration fixes**: Improves the evals UI by grouping related tools and fixing cases where run duration could be missing or incorrect ([#10133](https://github.com/RooCodeInc/Roo-Code/pull/10133))
 
 ## Provider Updates
 
@@ -139,3 +149,6 @@ You can now configure how Enter behaves in the chat input so it better fits mult
 * **OpenRouter tool support for OpenAI models**: Makes tool usage more predictable by explicitly enabling `apply_patch` and avoiding unsupported file-writing tools ([#10082](https://github.com/RooCodeInc/Roo-Code/pull/10082))
 * **AWS Bedrock service tier support**: Adds a Bedrock service tier option (Standard/Flex/Priority) for supported models (thanks Smartsheet-JB-Brown!) ([#9955](https://github.com/RooCodeInc/Roo-Code/pull/9955))
 * **Amazon Nova 2 Lite in Bedrock**: Adds the Nova 2 Lite model to the Bedrock provider model list (thanks Smartsheet-JB-Brown!) ([#9830](https://github.com/RooCodeInc/Roo-Code/pull/9830))
+* **Native tools by default (more providers)**: Defaults more providers to the native tool protocol for more consistent tool calling across providers ([#10059](https://github.com/RooCodeInc/Roo-Code/pull/10059), [#10021](https://github.com/RooCodeInc/Roo-Code/pull/10021))
+* **Bedrock custom ARNs are less restrictive**: Removes overly strict ARN validation that could block valid AWS Bedrock custom ARNs, while keeping a non-blocking region mismatch warning ([#10110](https://github.com/RooCodeInc/Roo-Code/pull/10110))
+* **Cleaner Bedrock service tier UI**: Removes extra description text under the Bedrock service tier selector to make the UI easier to scan ([#10118](https://github.com/RooCodeInc/Roo-Code/pull/10118))
