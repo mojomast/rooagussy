@@ -1,0 +1,13 @@
+[Unit]
+Description=Roo Code Docs RAG - Scheduled Sync Timer
+Requires=roo-rag-sync.service
+
+[Timer]
+# Run every 6 hours
+OnCalendar=*-*-* 00,06,12,18:00:00
+# Randomize start time by up to 30 minutes to avoid thundering herd
+RandomizedDelaySec=1800
+Persistent=true
+
+[Install]
+WantedBy=timers.target

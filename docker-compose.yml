@@ -1,0 +1,98 @@
+version: "3.8"
+
+# RAG System Docker Compose Configuration
+# For VPS deployment (16GB RAM target)
+
+services:
+  # =====================
+  # Qdrant Vector Database
+  # =====================
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: roo-rag-qdrant
+    restart: unless-stopped
+    volumes:
+      - qdrant_storage:/qdrant/storage
+    environment:
+      - QDRANT__SERVICE__GRPC_PORT=6334
+      - QDRANT__SERVICE__HTTP_PORT=6333
+    # Not exposed publicly - only accessible from internal network
+    networks:
+      - rag-internal
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:6333/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  # =====================
+  # RAG Backend API
+  # =====================
+  rag-backend:
+    build:
+      context: ./rag-backend
+      dockerfile: Dockerfile
+    container_name: roo-rag-backend
+    restart: unless-stopped
+    env_file:
+      - ./rag-backend/.env
+    environment:
+      - NODE_ENV=production
+      - QDRANT_URL=http://qdrant:6333
+    ports:
+      - "127.0.0.1:3001:3001"  # Only expose to localhost for Nginx proxy
+    depends_on:
+      qdrant:
+        condition: service_healthy
+    networks:
+      - rag-internal
+    volumes:
+      # Mount docs for ingestion (read-only)
+      - ./docs:/app/docs:ro
+      # Persist ingestion state
+      - rag_state:/app/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3001/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+    # Memory limit for Node.js (adjust based on VPS resources)
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+
+  # =====================
+  # Redis (Optional - for caching)
+  # =====================
+  redis:
+    image: redis:7-alpine
+    container_name: roo-rag-redis
+    restart: unless-stopped
+    command: redis-server --appendonly yes --maxmemory 256mb --maxmemory-policy allkeys-lru
+    volumes:
+      - redis_data:/data
+    networks:
+      - rag-internal
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    profiles:
+      - with-redis  # Only start with: docker compose --profile with-redis up
+
+networks:
+  rag-internal:
+    driver: bridge
+    internal: false  # Allow outbound for LLM API calls
+
+volumes:
+  qdrant_storage:
+    driver: local
+  rag_state:
+    driver: local
+  redis_data:
+    driver: local

@@ -320,6 +320,12 @@ const config: Config = {
           type: 'search',
           position: 'left',
         },
+        {
+          label: '💬 Chat',
+          to: '/chat',
+          position: 'right',
+          className: 'navbar-chat-link',
+        },
       ],
     },
     footer: {

@@ -1,0 +1,13 @@
+[Unit]
+Description=Roo Code Docs RAG - Sync and Reindex
+
+[Service]
+Type=oneshot
+User=root
+WorkingDirectory=/var/www/roo-docs
+ExecStart=/var/www/roo-docs/ops/scripts/sync_and_reindex.sh
+StandardOutput=append:/var/log/roo-rag-sync.log
+StandardError=append:/var/log/roo-rag-sync.log
+
+[Install]
+WantedBy=multi-user.target
