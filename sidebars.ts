@@ -138,8 +138,8 @@ const sidebars: SidebarsConfig = {
     },
     {
       type: 'doc',
-      label: 'Roo Code Cloud Provider',
-      id: 'roo-code-provider/overview'
+      label: 'Roo Code Router',
+      id: 'roo-code-router/overview'
     },
     {
       type: 'doc',

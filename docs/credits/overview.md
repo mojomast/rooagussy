@@ -11,7 +11,7 @@ keywords:
 
 Roo Code is composed of a few products:
 - **Roo Code VS Code** (the extension) is 100% free
-- **Roo Code Cloud Provider** (the model provider) offers both free and paid models
+- **Roo Code Router** (the model router) offers both free and paid models
 - **Roo Code Cloud Agents** (the automous agents) are a paid feature as they incur infrastructure costs
 
 In order to use paid models via our provider and to run Cloud agents, you need credits.
@@ -42,7 +42,7 @@ The monthly subscription to the Team plan simply unlocks advanced functionality.
 
 ## How do I get free credits or free minutes or free tokens?
 
-When you sign up for a Roo Code Cloud account, you'll be given a number of "Free Minutes" to try the product out (you'll see a cute <LucideIcon name="Gift" style={{ width: 14, position: "relative", top: 4}} /> icon). Those free minutes cover both the [Cloud Agent](/roo-code-cloud/cloud-agents) run time _and_ inference via the Roo Code Cloud provider (both of which normally cost credits). Those can't be used in the extension – they're there for you to try the magic of Cloud Agents.
+When you sign up for a Roo Code Cloud account, you'll be given a number of "Free Minutes" to try the product out (you'll see a cute <LucideIcon name="Gift" style={{ width: 14, position: "relative", top: 4}} /> icon). Those free minutes cover both the [Cloud Agent](/roo-code-cloud/cloud-agents) run time _and_ inference via the Roo Code Router (both of which normally cost credits). Those can't be used in the extension – they're there for you to try the magic of Cloud Agents.
 
 If you want free inference in the extension, choose a free model (or another provider which may offer it to you for free).
 

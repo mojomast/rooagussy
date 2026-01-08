@@ -288,6 +288,11 @@ const config: Config = {
             to: '/credits/overview',
             from: ['/roo-code-cloud/billing-subscriptions'],
           },
+          // Redirect renamed Roo Code Cloud Provider to Roo Code Router
+          {
+            to: '/roo-code-router/overview',
+            from: ['/roo-code-provider/overview'],
+          },
         ],
       },
     ],
