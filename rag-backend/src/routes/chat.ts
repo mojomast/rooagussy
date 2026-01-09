@@ -10,7 +10,7 @@ const router: Router = Router();
 const conversations = new Map<string, ChatMessage[]>();
 
 const chatRequestSchema = z.object({
-  message: z.string().min(1).max(4000),
+  message: z.string().min(1).max(20000),
   conversationId: z.string().optional(),
 });
 
