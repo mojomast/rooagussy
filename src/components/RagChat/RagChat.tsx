@@ -117,7 +117,7 @@ export default function RagChat(): React.ReactElement {
         },
         body: JSON.stringify({
           message: trimmedInput,
-          conversationId,
+          ...(conversationId && { conversationId }),
         }),
       });
 
