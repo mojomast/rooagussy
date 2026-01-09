@@ -20,7 +20,7 @@ export async function ensureCollection(): Promise<void> {
 
   try {
     const collections = await qdrant.getCollections();
-    const exists = collections.collections.some(c => c.name === collectionName);
+    const exists = collections.collections.some((c: any) => c.name === collectionName);
 
     if (!exists) {
       logger.info({ collection: collectionName }, 'Creating Qdrant collection');
@@ -86,7 +86,7 @@ export async function searchVectors(
     filter: filter,
   });
 
-  return results.map(r => ({
+  return results.map((r: any) => ({
     id: r.id,
     score: r.score,
     payload: r.payload as Record<string, unknown>,
