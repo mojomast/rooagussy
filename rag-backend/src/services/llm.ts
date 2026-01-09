@@ -1,3 +1,4 @@
+// @ts-ignore
 import { ChatOpenAI, OpenAIEmbeddings } from '@langchain/openai';
 import { env, logger } from '../config/index.js';
 

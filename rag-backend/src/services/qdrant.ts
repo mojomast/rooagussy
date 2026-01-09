@@ -1,3 +1,4 @@
+// @ts-ignore
 import { QdrantClient } from '@qdrant/js-client-rest';
 import { env, logger } from '../config/index.js';
 

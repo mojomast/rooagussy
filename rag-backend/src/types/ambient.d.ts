@@ -5,7 +5,12 @@ declare module 'sql.js' {
     close(): void;
     export(): Uint8Array;
   }
-  export function initSqlJs(config?: any): Promise<{ Database: new (data?: Uint8Array) => Database }>;
+  export interface SQLModule {
+    Database: new (data?: Uint8Array) => Database;
+  }
+  export function initSqlJs(config?: any): Promise<SQLModule>;
+  const initSqlJsDefault: (config?: any) => Promise<SQLModule>;
+  export default initSqlJsDefault;
 }
 
 declare module '@langchain/openai' {
@@ -25,6 +30,9 @@ declare module '@qdrant/js-client-rest' {
     constructor(config: any);
     getCollections(): Promise<{ collections: { name: string }[] }>;
     createCollection(name: string, config: any): Promise<void>;
+    deleteCollection(name: string): Promise<void>;
+    createPayloadIndex(collectionName: string, config: any): Promise<void>;
+    getCollection(name: string): Promise<any>;
     upsert(collectionName: string, points: any): Promise<void>;
     search(collectionName: string, config: any): Promise<any[]>;
     delete(collectionName: string, config: any): Promise<void>;

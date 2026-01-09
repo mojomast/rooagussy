@@ -1,3 +1,4 @@
+// @ts-ignore
 import initSqlJs, { Database } from 'sql.js';
 import fs from 'fs/promises';
 import path from 'path';
