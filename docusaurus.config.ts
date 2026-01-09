@@ -47,6 +47,18 @@ const config: Config = {
   // Custom fields for client-side access
   customFields: {
     intercomAppId: process.env.INTERCOM_APP_ID,
+    vite: {
+      server: {
+        proxy: {
+          '/rag/api': {
+            target: 'http://localhost:3001',
+            changeOrigin: true,
+            secure: false,
+            rewrite: (path: string) => path.replace(/^\/rag\/api/, '/api'),
+          },
+        },
+      },
+    },
   },
 
   // Even if you don't use internationalization, you can use this field to set
@@ -75,20 +87,6 @@ const config: Config = {
       } satisfies Preset.Options,
     ],
   ],
-
-  // Vite dev server config: proxy /rag/api/* to the local backend's /api/*
-  vite: {
-    server: {
-      proxy: {
-        '/rag/api': {
-          target: 'http://localhost:3001',
-          changeOrigin: true,
-          secure: false,
-          rewrite: (path: string) => path.replace(/^\/rag\/api/, '/api'),
-        },
-      },
-    },
-  },
 
   themes: [
     [
