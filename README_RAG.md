@@ -403,3 +403,63 @@ Authorization: Bearer YOUR_ADMIN_TOKEN
 ### POST /rag/api/admin/reindex/full
 
 Trigger full reindex (requires auth).
+
+## Discord Bot (Optional)
+
+The RAG system includes an optional Discord bot that allows users to ask questions about Roo Code directly in Discord.
+
+### Discord Bot Setup
+
+1. **Create Discord Application:**
+   - Go to [Discord Developer Portal](https://discord.com/developers/applications)
+   - Create a new application
+   - Go to "Bot" section and create a bot
+   - Copy the bot token
+   - Under "OAuth2" copy the Client ID
+
+2. **Configure Bot Permissions:**
+   - OAuth2 > URL Generator
+   - Select scopes: `bot`, `applications.commands`
+   - Select permissions: `Send Messages`, `Embed Links`, `Use Slash Commands`
+   - Use the generated URL to invite the bot
+
+3. **Configure Environment:**
+   ```bash
+   cd discord-bot
+   cp .env.example .env
+   nano .env  # Add DISCORD_BOT_TOKEN and DISCORD_CLIENT_ID
+   ```
+
+4. **Register Commands:**
+   ```bash
+   pnpm install
+   pnpm run register
+   ```
+
+5. **Start the Bot:**
+   ```bash
+   # Development
+   pnpm dev
+
+   # Production with Docker
+   docker compose --profile with-discord up -d
+   ```
+
+### Discord Bot Commands
+
+| Command | Description |
+|---------|-------------|
+| `/ask <question>` | Ask about Roo Code documentation |
+| `/status` | Check bot and backend health |
+| `/help` | Show usage information |
+
+### Running with Docker
+
+```bash
+# Start all services including Discord bot
+docker compose --profile with-discord up -d
+
+# Or add it to an existing deployment
+docker compose --profile with-discord up -d discord-bot
+```
+

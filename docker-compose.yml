@@ -84,6 +84,32 @@ services:
     profiles:
       - with-redis  # Only start with: docker compose --profile with-redis up
 
+  # =====================
+  # Discord Bot
+  # =====================
+  discord-bot:
+    build:
+      context: ./discord-bot
+      dockerfile: Dockerfile
+    container_name: roo-rag-discord-bot
+    restart: unless-stopped
+    env_file:
+      - ./discord-bot/.env
+    environment:
+      - RAG_API_URL=http://rag-backend:3001/api
+    depends_on:
+      rag-backend:
+        condition: service_healthy
+    networks:
+      - rag-internal
+    # No ports needed - bot connects outbound to Discord
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+    profiles:
+      - with-discord  # Only start with: docker compose --profile with-discord up
+
 networks:
   rag-internal:
     driver: bridge
