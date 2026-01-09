@@ -114,6 +114,7 @@ export default function RagChat(): React.ReactElement {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'x-api-key': (import.meta as any).env?.VITE_RAG_API_KEY || '',
         },
         body: JSON.stringify({
           message: trimmedInput,

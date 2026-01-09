@@ -34,6 +34,9 @@ const envSchema = z.object({
   MAX_CONTEXT_TOKENS: z.string().default('4000').transform(Number),
   RETRIEVAL_TOP_K: z.string().default('6').transform(Number),
 
+  // API Authentication
+  API_KEY: z.string().min(16),
+
   // Admin
   ADMIN_REINDEX_TOKEN: z.string().min(16),
 

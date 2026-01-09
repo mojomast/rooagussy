@@ -22,18 +22,28 @@ This repository is a fork of the Roo Code documentation with enhanced Retrieval-
 
 ### Production Deployment
 
+For production deployment with public frontend and secured backend:
+
 ```bash
-# Clone and setup
-git clone <repository-url>
-cd roo-code-docs
+# Configure environment files
+cp .env.example .env
+cp rag-backend/.env.example rag-backend/.env
 
-# Start all services (RAG backend + Discord bot)
-chmod +x start.sh
-./start.sh start
+# Edit .env files with your production values:
+# - Set DOCUSAURUS_URL=https://ussy.host
+# - Set VITE_RAG_API_KEY to your API key
+# - Configure rag-backend/.env with API_KEY and other settings
 
-# Check status
-./start.sh status
+# Deploy to production
+chmod +x deploy-prod.sh
+./deploy-prod.sh
 ```
+
+The production setup:
+- ✅ Serves frontend publicly via Nginx
+- 🔒 Secures backend API with authentication
+- 🚀 Includes rate limiting and security headers
+- 🔑 Requires API key for chat functionality
 
 ### Development Setup
 
