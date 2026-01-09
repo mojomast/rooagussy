@@ -76,6 +76,20 @@ const config: Config = {
     ],
   ],
 
+  // Vite dev server config: proxy /rag/api/* to the local backend's /api/*
+  vite: {
+    server: {
+      proxy: {
+        '/rag/api': {
+          target: 'http://localhost:3001',
+          changeOrigin: true,
+          secure: false,
+          rewrite: (path: string) => path.replace(/^\/rag\/api/, '/api'),
+        },
+      },
+    },
+  },
+
   themes: [
     [
       require.resolve("@easyops-cn/docusaurus-search-local"),
