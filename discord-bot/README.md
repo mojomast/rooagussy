@@ -37,13 +37,13 @@ Edit `.env`:
 DISCORD_BOT_TOKEN=your-bot-token-here
 DISCORD_CLIENT_ID=your-client-id-here
 DISCORD_GUILD_ID=your-test-guild-id  # Optional: for faster testing
-RAG_API_URL=http://localhost:3001/api
+RAG_API_URL=https://yourdomain.tld/rag/api
 ```
 
-**Important:** The `RAG_API_URL` setting depends on how you're running the bot:
+**Important:** The `RAG_API_URL` setting depends on where your RAG backend is running:
 
-- **Local development** (`pnpm dev`): `RAG_API_URL=http://localhost:3001/api`
-- **Docker deployment**: The docker-compose.yml automatically overrides this to `http://rag-backend:3001/api` (internal Docker network)
+- **VPS deployment**: `https://yourdomain.tld/rag/api` (nginx reverse proxy)
+- **Local development**: `http://localhost:3001/rag/api` (direct to backend)
 
 ### 4. Install Dependencies
 
