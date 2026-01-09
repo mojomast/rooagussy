@@ -40,6 +40,11 @@ DISCORD_GUILD_ID=your-test-guild-id  # Optional: for faster testing
 RAG_API_URL=http://localhost:3001/api
 ```
 
+**Important:** The `RAG_API_URL` setting depends on how you're running the bot:
+
+- **Local development** (`pnpm dev`): `RAG_API_URL=http://localhost:3001/api`
+- **Docker deployment**: The docker-compose.yml automatically overrides this to `http://rag-backend:3001/api` (internal Docker network)
+
 ### 4. Install Dependencies
 
 ```bash
@@ -88,6 +93,8 @@ docker compose --profile with-discord up -d discord-bot
 ```
 
 Make sure to create `discord-bot/.env` with your Discord credentials before running.
+
+**Network Communication:** When running in Docker, the bot automatically communicates with the RAG backend using the internal Docker network (`http://rag-backend:3001/api`). The RAG backend is not exposed to the internet - only the Discord bot and web interface can access it.
 
 ## Architecture
 
@@ -150,5 +157,6 @@ By default, users can only use commands once every 5 seconds. Configure with `CO
 
 ### "RAG backend not reachable"
 - Ensure the RAG backend is running
-- Check `RAG_API_URL` is correct
-- Verify network connectivity between containers
+- **For local development:** Check `RAG_API_URL=http://localhost:3001/api`
+- **For Docker deployment:** The URL is automatically set to `http://rag-backend:3001/api` (internal network)
+- Verify network connectivity between containers: `docker compose exec discord-bot curl http://rag-backend:3001/api/health`
