@@ -25,7 +25,7 @@ export function getChatModel(): ChatOpenAI {
       openAIApiKey: env.LLM_API_KEY,
       modelName: env.LLM_MODEL,
       temperature: 0.1,
-      maxTokens: 2048,
+      maxTokens: 50000,
       configuration: {
         baseURL: env.LLM_BASE_URL,
       },
