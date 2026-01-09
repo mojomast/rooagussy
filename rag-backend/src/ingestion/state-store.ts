@@ -107,7 +107,7 @@ export async function getAllFileStates(): Promise<FileState[]> {
     return [];
   }
   
-  return result[0].values.map(row => ({
+  return result[0].values.map((row: any) => ({
     filePath: row[0] as string,
     contentHash: row[1] as string,
     lastIngested: new Date(row[2] as string),
@@ -155,7 +155,7 @@ export async function getChunkIdsForFile(filePath: string): Promise<string[]> {
     return [];
   }
   
-  return result[0].values.map(row => row[0] as string);
+  return result[0].values.map((row: any) => row[0] as string);
 }
 
 export async function deleteFileState(filePath: string): Promise<string[]> {

@@ -2,7 +2,7 @@ import { Router, Request, Response, NextFunction } from 'express';
 import { env, logger } from '../config/index.js';
 import { ingestIncremental, ingestFull } from '../ingestion/index.js';
 
-const router = Router();
+const router: Router = Router();
 
 // Admin authentication middleware
 function adminAuth(req: Request, res: Response, next: NextFunction) {

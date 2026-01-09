@@ -2,7 +2,7 @@ import { Router, Request, Response } from 'express';
 import { checkQdrantHealth, getCollectionInfo } from '../services/index.js';
 import { logger } from '../config/index.js';
 
-const router = Router();
+const router: Router = Router();
 
 router.get('/health', async (_req: Request, res: Response) => {
   try {

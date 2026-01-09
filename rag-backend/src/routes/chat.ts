@@ -4,7 +4,7 @@ import { nanoid } from 'nanoid';
 import { logger, env } from '../config/index.js';
 import { embedText, generateAnswer, searchVectors, type ChatMessage } from '../services/index.js';
 
-const router = Router();
+const router: Router = Router();
 
 // In-memory conversation store (for demo - use Redis in production)
 const conversations = new Map<string, ChatMessage[]>();
