@@ -49,9 +49,9 @@ app.use((req, res, next) => {
 });
 
 // Routes
-app.use('/api', healthRouter);
-app.use('/api', chatRouter);
-app.use('/api/admin', adminRouter);
+app.use('/rag/api', healthRouter);
+app.use('/rag/api', chatRouter);
+app.use('/rag/api/admin', adminRouter);
 
 // Error handler
 app.use((err: Error, req: express.Request, res: express.Response, _next: express.NextFunction) => {
