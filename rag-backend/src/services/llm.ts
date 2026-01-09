@@ -61,7 +61,17 @@ export async function embedTexts(texts: string[]): Promise<number[][]> {
   }
 
   const data = await response.json();
-  logger.debug({ model: env.EMBED_MODEL, count: texts.length, dimension: data.data[0]?.embedding?.length }, 'Embeddings generated');
+  logger.info({ model: env.EMBED_MODEL, count: texts.length, dimension: data.data[0]?.embedding?.length }, 'Embeddings generated');
+
+  // Validate embedding dimension
+  const observedDim = data.data[0]?.embedding?.length;
+  if (observedDim !== 3072) {
+    throw new Error(
+      `Embedding dimension mismatch for model ${env.EMBED_MODEL}: observed ${observedDim}, expected 3072. ` +
+      'You may be passing dimensions=768/1536 somewhere. Check your OpenRouter configuration.'
+    );
+  }
+
   return data.data.map((item: any) => item.embedding);
 }
 

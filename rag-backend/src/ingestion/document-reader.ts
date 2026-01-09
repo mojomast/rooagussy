@@ -74,6 +74,8 @@ export async function readDocFile(absolutePath: string, relativePath: string): P
     // Parse frontmatter
     const { attributes, body } = fm<Frontmatter>(raw);
     
+    logger.debug({ filePath: relativePath, contentLength: body.length }, 'Read doc file');
+    
     const title = attributes.title || 
                   attributes.sidebar_label || 
                   extractTitleFromContent(body);

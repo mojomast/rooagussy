@@ -10,6 +10,7 @@
     "start": "node --max-old-space-size=1024 dist/index.js",
     "ingest": "tsx src/cli/ingest.ts",
     "ingest:full": "tsx src/cli/ingest.ts --full",
+    "inspect": "tsx src/cli/inspect.ts",
     "lint": "eslint src --ext .ts",
     "check-types": "tsc --noEmit"
   },

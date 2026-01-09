@@ -13,7 +13,7 @@ const envSchema = z.object({
   QDRANT_URL: z.string().url(),
   QDRANT_API_KEY: z.string().optional(),
   QDRANT_COLLECTION: z.string().default('roo-docs'),
-  VECTOR_DIM: z.string().default('1536').transform(Number),
+  VECTOR_DIM: z.string().default('3072').transform(Number),
 
   // Document paths
   DOCS_ROOT: z.string().default('..'),
@@ -54,6 +54,12 @@ function validateEnv() {
   return result.data;
 }
 
-export const env = validateEnv();
+const env = validateEnv();
 
-export type Env = z.infer<typeof envSchema>;
+// Validate VECTOR_DIM is exactly 3072
+if (env.VECTOR_DIM !== 3072) {
+  console.error(`VECTOR_DIM must be exactly 3072, got ${env.VECTOR_DIM}`);
+  process.exit(1);
+}
+
+export { env };

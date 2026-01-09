@@ -48,7 +48,15 @@ export async function ensureCollection(): Promise<void> {
 
       logger.info({ collection: collectionName }, 'Collection created with indexes');
     } else {
-      logger.debug({ collection: collectionName }, 'Collection already exists');
+      // Check existing collection vector size
+      const info = await getCollectionInfo();
+      if (info && info.config?.params?.vectors?.size !== env.VECTOR_DIM) {
+        throw new Error(
+          `Existing Qdrant collection '${collectionName}' has vector size ${info.config?.params?.vectors?.size}, but expected ${env.VECTOR_DIM}. ` +
+          'Please delete the collection manually or run ingest:full to recreate it.'
+        );
+      }
+      logger.debug({ collection: collectionName }, 'Collection already exists with correct size');
     }
   } catch (error) {
     logger.error({ error, collection: collectionName }, 'Failed to ensure collection');

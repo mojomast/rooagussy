@@ -3,6 +3,7 @@ import { z } from 'zod';
 import { nanoid } from 'nanoid';
 import { logger, env } from '../config/index.js';
 import { embedText, generateAnswer, searchVectors, type ChatMessage } from '../services/index.js';
+import { countTokens } from '../ingestion/chunker.js';
 
 const router: Router = Router();
 
@@ -76,6 +77,8 @@ ${payload.content || 'Content not available'}
     }
 
     const context = contextParts.join('\n\n');
+
+    logger.debug({ contextTokenCount: countTokens(context), contextPreview: context.slice(0, 500) }, 'Built context');
 
     // Get recent conversation history (last 4 exchanges = 8 messages)
     const recentHistory = history.slice(-8);

@@ -142,7 +142,7 @@ export async function ingestIncremental(): Promise<IngestResult> {
           chunks.map(c => ({
             id: c.id,
             vector: c.embedding,
-            payload: c.metadata,
+            payload: { ...c.metadata, content: c.content },
           }))
         );
 
@@ -241,7 +241,7 @@ export async function ingestFull(): Promise<IngestResult> {
         batch.map(c => ({
           id: c.id,
           vector: c.embedding,
-          payload: c.metadata,
+          payload: { ...c.metadata, content: c.content },
         }))
       );
 
