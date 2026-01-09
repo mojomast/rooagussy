@@ -108,7 +108,7 @@ export default function RagChat(): React.ReactElement {
 
     try {
       // Use environment variable for API URL, fallback to localhost for development
-      const apiBaseUrl = process.env.REACT_APP_RAG_API_URL || 'http://localhost:3001';
+      const apiBaseUrl = (import.meta as any).env?.VITE_RAG_API_URL || 'http://localhost:3001';
       const response = await fetch(`${apiBaseUrl}/rag/api/chat`, {
         method: 'POST',
         headers: {
