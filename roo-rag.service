@@ -1,0 +1,26 @@
+[Unit]
+Description=Roo Code RAG System
+After=docker.service
+Requires=docker.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+WorkingDirectory=/home/mojo/rooagussy/rooagussy
+ExecStart=/home/mojo/rooagussy/rooagussy/start.sh start
+ExecStop=/home/mojo/rooagussy/rooagussy/start.sh stop
+ExecReload=/home/mojo/rooagussy/rooagussy/start.sh restart
+TimeoutStartSec=300
+TimeoutStopSec=60
+
+# Restart policy
+Restart=on-failure
+RestartSec=10
+
+# User and environment
+User=mojo
+Environment=PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+[Install]
+WantedBy=multi-user.target</content>
+<parameter name="filePath">c:\Users\kyle\projects\ragussy\Roo-Code-Docs\roo-rag.service
