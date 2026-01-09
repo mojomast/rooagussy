@@ -68,8 +68,8 @@ async function start() {
     // Ensure Qdrant collection exists
     await ensureCollection();
     
-    app.listen(env.PORT, () => {
-      logger.info({ port: env.PORT, env: env.NODE_ENV }, '🚀 RAG Backend started');
+    app.listen(env.PORT, '0.0.0.0', () => {
+      logger.info({ port: env.PORT, host: '0.0.0.0', env: env.NODE_ENV }, '🚀 RAG Backend started');
     });
   } catch (error) {
     logger.error({ error }, 'Failed to start server');
