@@ -36,13 +36,33 @@ export function getChatModel(): ChatOpenAI {
 }
 
 export async function embedText(text: string): Promise<number[]> {
-  const model = getEmbeddings();
-  return model.embedQuery(text);
+  const embeddings = await embedTexts([text]);
+  return embeddings[0];
 }
 
 export async function embedTexts(texts: string[]): Promise<number[][]> {
-  const model = getEmbeddings();
-  return model.embedDocuments(texts);
+  const response = await fetch(`${env.EMBED_BASE_URL}/embeddings`, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${env.EMBED_API_KEY}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      model: env.EMBED_MODEL,
+      input: texts,
+      encoding_format: 'float',
+    }),
+  });
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    logger.error({ status: response.status, error: errorText }, 'Embedding API request failed');
+    throw new Error(`Embedding API error: ${response.status} ${response.statusText} - ${errorText}`);
+  }
+
+  const data = await response.json();
+  logger.debug({ model: env.EMBED_MODEL, count: texts.length, dimension: data.data[0]?.embedding?.length }, 'Embeddings generated');
+  return data.data.map((item: any) => item.embedding);
 }
 
 export interface ChatMessage {
